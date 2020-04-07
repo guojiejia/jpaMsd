@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang = "en" xmlns:th = "http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>订单详情</title>
+<link rel = "stylesheet" th:href="@{/css/bootstrap.css}"></link>
+</head>
+<body class = "container">
+<h1> 订单详情</h1>
+<br/>
+<div class = "width:80%">
+	<table class = "table table-hover">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>商品名称</th>
+				<th>商品介绍</th>
+				<th>商品单价</th>
+				<th>生产日期</th>
+				<th>订购数量</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each = "OrdersDetail : ${OrdersDetails}" >
+				<td th:text = ${OrdersDetail.id}></td>
+				<td th:text = ${OrdersDetail.item.name}></td>
+				<td th:text = ${OrdersDetail.item.detail}></td>
+				<td th:text = ${OrdersDetail.item.price}></td>
+				<td th:text = ${OrdersDetail.item.createTime}></td>
+				<td th:text = ${OrdersDetail.itemNum}></td>
+				<td><a th:href = "@{/toEdit(id = ${OrdersDetail.id})}">编辑</a></td>
+				<td><a th:href = "@{/Delete(id = ${OrdersDetail.id})}" onclick = "return confirm("确认删除该商品吗？")">删除</a></td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<div class = "from-group">
+	<div class = "col-sm-2 control-label">
+		<a href = "/toAdd" class = "btn btn-info">添加</a>
+	</div>
+</div>
+</body>
+</html>
