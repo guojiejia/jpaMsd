@@ -1,7 +1,9 @@
 package com.example.Jpa.Study.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -28,7 +30,7 @@ public class ordersDetail {
 	@Column(name="item_num")
 	private int itemNum;
 	
-	@ManyToOne(targetEntity = order.class)
+	@ManyToOne(targetEntity = order.class , cascade = CascadeType.ALL , fetch = FetchType.LAZY ,optional = true)
 	@JoinColumn(name = "order_id" )
 	private order order;
 }

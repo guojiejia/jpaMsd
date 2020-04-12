@@ -12,7 +12,6 @@
 	<table class = "table table-hover">
 		<thead>
 			<tr>
-				<th>Id</th>
 				<th>商品名称</th>
 				<th>商品介绍</th>
 				<th>商品单价</th>
@@ -22,14 +21,13 @@
 		</thead>
 		<tbody>
 			<tr th:each = "OrdersDetail : ${OrdersDetails}" >
-				<td th:text = ${OrdersDetail.id}></td>
 				<td th:text = ${OrdersDetail.item.name}></td>
 				<td th:text = ${OrdersDetail.item.detail}></td>
 				<td th:text = ${OrdersDetail.item.price}></td>
 				<td th:text = ${OrdersDetail.item.createTime}></td>
 				<td th:text = ${OrdersDetail.itemNum}></td>
-				<td><a th:href = "@{/toEdit(id = ${OrdersDetail.id})}">编辑</a></td>
-				<td><a th:href = "@{/Delete(id = ${OrdersDetail.id})}" onclick = "return confirm("确认删除该商品吗？")">删除</a></td>
+				<td><a th:href = "@{/toEdit(OrderDetailId = ${OrdersDetail.id})}">编辑</a></td>
+				<td><a th:href = "@{/Delete(OrderDetailId = ${OrdersDetail.id})}" onclick = "return confirm("确认删除该商品吗？")">删除</a></td>
 			</tr>
 		</tbody>
 	</table>
@@ -37,6 +35,7 @@
 <div class = "from-group">
 	<div class = "col-sm-2 control-label">
 		<a href = "/toAdd" class = "btn btn-info">添加</a>
+		<a href = "OrdersDetail/order" class = "btn btn-info">后退</a>
 	</div>
 </div>
 </body>

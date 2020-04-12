@@ -35,7 +35,7 @@ public class users {
 	@Column(name = "adress")
 	private String adress;
 	
-	@OneToMany(fetch = FetchType.LAZY)
+	@OneToMany(fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id")
 	private Set<order> listOrders ;
 }

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang = "en" xmlns:th = "http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>订单</title>
+<link rel = "stylesheet" th:href="@{/css/bootstrap.css}"></link>
+</head>
+<body class = "container">
+<h1> 订单</h1>
+<br/>
+<div class = "width:80%">
+	<table class = "table table-hover">
+		<thead>
+			<tr>
+				<th>订单编号</th>
+				<th>订单生成日期</th>
+				<th>订单价格</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each = "Order : ${Orders}" >
+				<td th:text = ${Order.id}></td>
+				<td th:text = ${Order.createTime}></td>
+				<td th:text = ${Order.price}></td>
+				<td><a th:href = "@{/toDetialEdit(OrderId = ${Order.id})}">编辑</a></td>
+				<td><a th:href = "@{/OrderDelete(OrderId = ${Order.id})}" onclick = "return confirm("确认删除该商品吗？")">删除</a></td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+</body>
+</html>
