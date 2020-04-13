@@ -11,13 +11,13 @@ public class itemForm {
 		this.itemName = itemName;
 	}
 
-	public Long getItemNum() {
+	public int getItemNum() {
 		return itemNum;
 	}
 
-	public void setItemNum(Long itemNum) {
+	public void setItemNum(int itemNum) {
 		this.itemNum = itemNum;
 	}
 
-	private Long itemNum;
+	private int itemNum;
 }

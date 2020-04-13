@@ -8,4 +8,6 @@ import com.example.Jpa.Study.entity.item;
 @Repository
 public interface itemDao extends JpaRepository<item,Integer>  , JpaSpecificationExecutor<item>{
 
+	item findOneByName(String name);
+
 }

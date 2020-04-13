@@ -71,9 +71,9 @@ public class JpaStudyController {
 		return "OrdersDetail/EditOrderDetail";
 	}
 	@RequestMapping("/SaveEdit")
-	public String saveOrdersDetailInfo(@ModelAttribute(value="itemForm") itemForm item){
-		System.out.println(item.getItemName());
-		System.out.println(item.getItemNum());
-		return "OrdersDetail/order";
+	public String saveOrdersDetailInfo(Model model ,@ModelAttribute(value="itemForm") itemForm item,@RequestParam(value = "OrderDetailId" , defaultValue = "1") Integer OrderDetailId,@RequestParam(value = "OrderId" , defaultValue = "1") Integer OrderId){
+		Set<ordersDetail> updateOrderList = jpaStudyService.updateOrderList(item,OrderDetailId,OrderId);
+		model.addAttribute("OrdersDetails",updateOrderList);
+		return  "OrdersDetail/detailList";
 	}
 } 

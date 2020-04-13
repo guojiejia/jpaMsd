@@ -18,6 +18,8 @@ import com.example.Jpa.Study.entity.order;
 import com.example.Jpa.Study.entity.ordersDetail;
 import com.example.Jpa.Study.entity.users;
 
+import dto.itemForm;
+
 @Service
 public class JpaStudyService {
 
@@ -71,10 +73,18 @@ public class JpaStudyService {
 		return itemSelectList;
 	}
 	
-//	public List<ordersDetail> editoOrderDetails(Integer userId){
-//		
-//		return null;
-//	}
+	public Set<ordersDetail> updateOrderList (itemForm itemForm , Integer OrderDetailId , Integer OrderId){
+		Optional<order> order = orderDao.findById(OrderId);
+		for (ordersDetail ordersDetail : order.get().getSetOrdersDetail()) {
+			if(ordersDetail.getId() == OrderDetailId) {
+				item item = itemDao.findOneByName(itemForm.getItemName());
+				ordersDetail.setItem(item);
+				ordersDetail.setItemNum(itemForm.getItemNum());
+			}
+		}
+		orderDao.save(order.get());
+		return  order.get().getSetOrdersDetail();
+	}
 	
 
 }
