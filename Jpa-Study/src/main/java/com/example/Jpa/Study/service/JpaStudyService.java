@@ -82,7 +82,7 @@ public class JpaStudyService {
 				ordersDetail.setItemNum(itemForm.getItemNum());
 			}
 		}
-		orderDao.save(order.get());
+		orderDao.saveAndFlush(order.get());
 		return  order.get().getSetOrdersDetail();
 	}
 	

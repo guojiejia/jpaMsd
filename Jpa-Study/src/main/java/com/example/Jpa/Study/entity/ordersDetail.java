@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 import lombok.Data;
 
@@ -29,6 +30,11 @@ public class ordersDetail {
 	
 	@Column(name="item_num")
 	private int itemNum;
+	
+	
+	@Version
+	private long version;
+
 	
 	@ManyToOne(targetEntity = order.class , cascade = CascadeType.ALL , fetch = FetchType.LAZY ,optional = true)
 	@JoinColumn(name = "order_id" )

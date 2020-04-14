@@ -74,9 +74,6 @@ public class order {
 
 	@Column(name = "price" )
 	private float price;
-	
-	@Column(name = "version" )
-	private long version;
 
 	@OneToMany( cascade = CascadeType.ALL  , fetch = FetchType.EAGER  ,mappedBy = "order")
 	private Set<ordersDetail> setOrdersDetail = new HashSet<>();
