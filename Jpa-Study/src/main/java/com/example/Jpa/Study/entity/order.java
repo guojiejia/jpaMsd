@@ -57,13 +57,13 @@ public class order {
 		this.setOrdersDetail = setOrdersDetail;
 	}
 
-	@ManyToOne(cascade = CascadeType.ALL , fetch =FetchType.EAGER , optional = false)
+	@ManyToOne(cascade = CascadeType.ALL, fetch =FetchType.EAGER, optional = false)
 	@JoinColumn(name = "user_id" )
 	private users user;
-	
+
 	@Column(name = "createTime" )
 	private Date createTime;
-	
+
 	public float getPrice() {
 		return price;
 	}
@@ -75,6 +75,6 @@ public class order {
 	@Column(name = "price" )
 	private float price;
 
-	@OneToMany( cascade = CascadeType.ALL  , fetch = FetchType.EAGER  ,mappedBy = "order")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "order")
 	private Set<ordersDetail> setOrdersDetail = new HashSet<>();
 }

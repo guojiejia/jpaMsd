@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.Jpa.Study.entity.order;
 import com.example.Jpa.Study.entity.ordersDetail;
+import com.example.Jpa.Study.entity.users;
 import com.example.Jpa.Study.param.addOrderDetailParam;
 import com.example.Jpa.Study.service.JpaStudyService;
 
@@ -24,6 +25,12 @@ import dto.itemForm;
 public class JpaStudyController {
 	@Autowired
 	private JpaStudyService  jpaStudyService;
+	
+	@RequestMapping("getUsers")
+	public List<users> getUsers() {
+		List<users> users = jpaStudyService.findUsers();
+		return users;
+	}
 	
 	@RequestMapping("/")
 	public String index() {return "redirect:OrdersDetail/order";}

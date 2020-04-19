@@ -35,6 +35,10 @@ public class JpaStudyService {
 	@Autowired
 	private itemDao itemDao;
 	
+	public List<users> findUsers() {
+		return userDao.findAll();
+	}
+	
 	public List<ordersDetail> findDetails (Integer userId){
 		List<ordersDetail> listOrdersDetail = new ArrayList<ordersDetail>();
 		Optional<users> user = userDao.findById(userId);

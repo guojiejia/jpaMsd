@@ -18,18 +18,17 @@ public class item {
 	@Column(name = "id" )
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id ;
-	
+	private int id;
+
 	@Column(name = "name" )
 	private String name;
-	
+
 	@Column(name = "detail" )
 	private String detail;
-	
+
 	@Column(name = "price" )
 	private String price;
-	
+
 	@Column(name = "createTime" )
 	private Date createTime;
-	
 }

@@ -23,20 +23,18 @@ public class ordersDetail {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int  id;
-	
+
 	@OneToOne(targetEntity = item.class)
 	@JoinColumn(name = "item_id")
 	private item item;
-	
+
 	@Column(name="item_num")
 	private int itemNum;
-	
-	
+
 	@Version
 	private long version;
 
-	
-	@ManyToOne(targetEntity = order.class , cascade = CascadeType.ALL , fetch = FetchType.LAZY ,optional = true)
-	@JoinColumn(name = "order_id" )
+	@ManyToOne(targetEntity = order.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY,optional = true)
+	@JoinColumn(name = "order_id")
 	private order order;
 }
