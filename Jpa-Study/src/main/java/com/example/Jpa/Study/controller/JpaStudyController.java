@@ -32,6 +32,12 @@ public class JpaStudyController {
 		return users;
 	}
 	
+	@RequestMapping("getOrderListByUserId")
+	public List<order> findOrdersByUserId(Integer userId) {
+		List<order> orderList = jpaStudyService.findOrdersByUserId(userId);
+		return orderList;
+	}
+	
 	@RequestMapping("/")
 	public String index() {return "redirect:OrdersDetail/order";}
 	

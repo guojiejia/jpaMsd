@@ -95,7 +95,12 @@ class JpaStudyApplicationTests {
 	@Test void findUserInfo() {
 		List<users> us = jpaStudyController.getUsers();
 		System.out.println("us: " + us.toString());
-	}	
+	}
+
+	@Test void findOrdersByUserId() {
+		List<order> orderlist = jpaStudyController.findOrdersByUserId(1);
+		System.out.println("orderlist: " + orderlist.toString());
+	}
 
 	public void findAllOrderDetail() {
 		Optional<order> newOrder = ordersDao.findById(1);		

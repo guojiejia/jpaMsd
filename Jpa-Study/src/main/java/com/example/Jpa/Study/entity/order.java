@@ -19,7 +19,7 @@ import javax.persistence.Table;
 @Entity
 //@Data
 @Table(name = "orders")
-public class order {	
+public class order {
 	@Column(name = "id" )
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

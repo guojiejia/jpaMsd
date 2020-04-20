@@ -39,6 +39,14 @@ public class JpaStudyService {
 		return userDao.findAll();
 	}
 	
+	public List<order> findOrdersByUserId(Integer userId) {
+		List<order> orderList = orderDao.findAll(OrdersSpecification.getOrderSpecification(userId));
+		if(orderList.isEmpty()) {
+			System.out.println("orderList with userId " + userId.toString() + "not found !");
+		}
+		return orderList;
+	}
+	
 	public List<ordersDetail> findDetails (Integer userId){
 		List<ordersDetail> listOrdersDetail = new ArrayList<ordersDetail>();
 		Optional<users> user = userDao.findById(userId);

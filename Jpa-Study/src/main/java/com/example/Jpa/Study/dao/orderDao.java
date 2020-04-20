@@ -13,4 +13,5 @@ import com.example.Jpa.Study.entity.users;
 @Repository
 public interface orderDao extends JpaRepository<order,Integer>  , JpaSpecificationExecutor<order> {
 	public List<Optional<order>> findAllByUser (Optional<users> user);
+	public List<order> findOrdersByUserId(Integer userId);
 }
