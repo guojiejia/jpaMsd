@@ -35,14 +35,43 @@ public class JpaStudyService {
 	@Autowired
 	private itemDao itemDao;
 	
+	/**
+	 * 查user
+	 */
 	public List<users> findUsers() {
 		return userDao.findAll();
 	}
 	
+	/**
+	 * 一个user对应的所有订单
+	 */
 	public List<order> findOrdersByUserId(Integer userId) {
 		List<order> orderList = orderDao.findAll(OrdersSpecification.getOrderSpecification(userId));
 		if(orderList.isEmpty()) {
 			System.out.println("orderList with userId " + userId.toString() + "not found !");
+		}
+		return orderList;
+	}
+	
+	/**
+	 * 查询所有订单
+	 */
+	public List<order> findAllOrder() {
+//		List<order> orderList = orderDao.findAll();
+		List<order> orderList = orderDao.findAll(OrdersSpecification.getAllOrderWithoudOrderDetailSpecification());
+		if(orderList.isEmpty()) {
+			System.out.println("orderList is empty !");
+		}
+		return orderList;
+	}
+	
+	/**
+	 * 所有订单（不要订单明细） 原生sql查询
+	 */
+	public List<order> findAllOrdersByNativeQuery() {
+		List<order> orderList = orderDao.findAllOrdersByNativeQuery();
+		if(orderList.isEmpty()) {
+			System.out.println("orderList is empty !");
 		}
 		return orderList;
 	}

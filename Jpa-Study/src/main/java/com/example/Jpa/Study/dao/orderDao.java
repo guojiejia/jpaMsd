@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.example.Jpa.Study.entity.order;
@@ -14,4 +15,10 @@ import com.example.Jpa.Study.entity.users;
 public interface orderDao extends JpaRepository<order,Integer>  , JpaSpecificationExecutor<order> {
 	public List<Optional<order>> findAllByUser (Optional<users> user);
 	public List<order> findOrdersByUserId(Integer userId);
+	
+	/**
+	 * 所有订单（不要订单明细） 原生sql查询
+	 */
+	@Query(value="select * from orders", nativeQuery = true)
+	public List<order> findAllOrdersByNativeQuery();
 }

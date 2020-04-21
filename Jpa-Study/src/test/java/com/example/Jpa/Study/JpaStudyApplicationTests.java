@@ -41,8 +41,40 @@ class JpaStudyApplicationTests {
 	@Autowired
 	private JpaStudyController jpaStudyController;
 
+	/**
+	 * 查user
+	 */
+	@Test void findUserInfo() {
+		List<users> us = jpaStudyController.getUsers();
+		System.out.println("us: " + us.toString());
+	}
+
+	/**
+	 * 一个user对应的所有订单
+	 */
+	@Test void findOrdersByUserId() {
+		List<order> orderlist = jpaStudyController.findOrdersByUserId(1);
+		System.out.println("orderlist: " + orderlist.toString());
+	}
+	
+	/**
+	 * 所有订单（不要订单明细） 失败
+	 */
+	@Test void findAllOrders() {
+		List<order> orderlist = jpaStudyController.findAllOrder();
+		System.out.println("orderlist: " + orderlist.toString());
+	}
+	
+	/**
+	 * 所有订单（不要订单明细） 原生sql查询
+	 */
+	@Test void findAllOrdersByNativeQuery() {
+		List<order> orderlist = jpaStudyController.findAllOrdersByNativeQuery();
+		System.out.println("orderlist: " + orderlist.toString());
+	}
+	
 	@Test
-	public void storeData() {
+	public void storeUserData() {
 		item i = new item();
 		i.setDetail("pc比较笨重，但是可以diy");
 		i.setId(1);
@@ -83,23 +115,12 @@ class JpaStudyApplicationTests {
 		o.setId(1);
 		o.setPrice(2666*2);
 		o.setCreateTime(new Date());
-		//		Set<ordersDetail> odObj = new HashSet<ordersDetail>();
-		//		odObj.add(od);
-		//		odObj.add(od1);
-		//		o.setSetOrdersDetail(odObj);
+//				Set<ordersDetail> odObj = new HashSet<ordersDetail>();
+//				odObj.add(od);
+//				odObj.add(od1);
+//				o.setSetOrdersDetail(odObj);
 		o.setUser(u);
 		ordersDao.save(o);
-
-	}
-
-	@Test void findUserInfo() {
-		List<users> us = jpaStudyController.getUsers();
-		System.out.println("us: " + us.toString());
-	}
-
-	@Test void findOrdersByUserId() {
-		List<order> orderlist = jpaStudyController.findOrdersByUserId(1);
-		System.out.println("orderlist: " + orderlist.toString());
 	}
 
 	public void findAllOrderDetail() {
@@ -110,7 +131,6 @@ class JpaStudyApplicationTests {
 		}
 
 	}
-
 
 	public void testService () {
 		List<ordersDetail> findDetails = jpaStudyServiceTest.findDetails(1);

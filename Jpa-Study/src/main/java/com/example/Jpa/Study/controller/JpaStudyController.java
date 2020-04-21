@@ -26,15 +26,39 @@ public class JpaStudyController {
 	@Autowired
 	private JpaStudyService  jpaStudyService;
 	
+	/**
+	 * 查user
+	 */
 	@RequestMapping("getUsers")
 	public List<users> getUsers() {
 		List<users> users = jpaStudyService.findUsers();
 		return users;
 	}
 	
+	/**
+	 * 一个user对应的所有订单
+	 */
 	@RequestMapping("getOrderListByUserId")
 	public List<order> findOrdersByUserId(Integer userId) {
 		List<order> orderList = jpaStudyService.findOrdersByUserId(userId);
+		return orderList;
+	}
+	
+	/**
+	 * 查询所有订单(不要订单明细) 失败
+	 */
+	@RequestMapping("getAllOrder")
+	public List<order> findAllOrder() {
+		List<order> orderList = jpaStudyService.findAllOrder();
+		return orderList;
+	}
+	
+	/**
+	 * 所有订单（不要订单明细） 原生sql查询
+	 */
+	@RequestMapping("findAllOrdersByNativeQuery")
+	public List<order> findAllOrdersByNativeQuery() {
+		List<order> orderList = jpaStudyService.findAllOrdersByNativeQuery();
 		return orderList;
 	}
 	
