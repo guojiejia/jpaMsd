@@ -1,13 +1,17 @@
 package com.example.Jpa.Study.service;
 
+import java.math.BigInteger;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.sql.Timestamp;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.Jpa.Study.dao.itemDao;
 import com.example.Jpa.Study.dao.orderDao;
@@ -18,6 +22,7 @@ import com.example.Jpa.Study.entity.order;
 import com.example.Jpa.Study.entity.ordersDetail;
 import com.example.Jpa.Study.entity.users;
 
+import dto.OrderAndOrderDetailDto;
 import dto.itemForm;
 
 @Service
@@ -39,7 +44,8 @@ public class JpaStudyService {
 	 * 查user
 	 */
 	public List<users> findUsers() {
-		return userDao.findAll();
+		List<users> userList = userDao.findAll();
+		return userList;
 	}
 	
 	/**
@@ -54,14 +60,14 @@ public class JpaStudyService {
 	}
 	
 	/**
-	 * 查询所有订单
+	 * 查询所有订单（不要订单明细）
 	 */
 	public List<order> findAllOrder() {
-//		List<order> orderList = orderDao.findAll();
-		List<order> orderList = orderDao.findAll(OrdersSpecification.getAllOrderWithoudOrderDetailSpecification());
-		if(orderList.isEmpty()) {
-			System.out.println("orderList is empty !");
-		}
+		List<order> orderList = orderDao.findAll();
+//		List<order> orderList = orderDao.findAll(OrdersSpecification.getAllOrderWithoudOrderDetailSpecification());
+//		if(orderList.isEmpty()) {
+//			System.out.println("orderList is empty !");
+//		}
 		return orderList;
 	}
 	
@@ -74,6 +80,33 @@ public class JpaStudyService {
 			System.out.println("orderList is empty !");
 		}
 		return orderList;
+	}
+	
+	/**
+	 * 一个user对应的所有订单与订单明细
+	 */
+	public List<OrderAndOrderDetailDto> findAllOrdersWithOrderDetailsWithUserId(Integer userId) {
+		List<Object> objectList = orderDao.findAllOrdersWithOrderDetailsWithUserId(userId);
+		if(objectList.isEmpty()) {
+			System.out.println("objectList is empty !");
+		}
+		List<OrderAndOrderDetailDto> orderAndOrderDetailDto = new ArrayList<OrderAndOrderDetailDto>();
+		for (int i = 0; i < objectList.size(); i++) {
+			OrderAndOrderDetailDto dtoList = new OrderAndOrderDetailDto();
+			Object[] obj = (Object[])objectList.get(i);
+			dtoList.setOId((Integer)obj[0]);
+			dtoList.setOCreateTime((Timestamp)obj[1]);
+			dtoList.setOPrice((Float)obj[2]);
+			dtoList.setOUserId((Integer)obj[3]);
+			dtoList.setOdId((Integer)obj[4]);
+			dtoList.setOdItemNum((Integer)obj[5]);
+			dtoList.setOdVersion((BigInteger)obj[6]);
+			dtoList.setOdItemId((Integer)obj[7]);
+			dtoList.setOdOrderId((Integer)obj[8]);
+			orderAndOrderDetailDto.add(dtoList);
+		}
+		
+		return orderAndOrderDetailDto;
 	}
 	
 	public List<ordersDetail> findDetails (Integer userId){

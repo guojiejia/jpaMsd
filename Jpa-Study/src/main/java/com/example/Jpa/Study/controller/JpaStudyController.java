@@ -19,6 +19,7 @@ import com.example.Jpa.Study.entity.users;
 import com.example.Jpa.Study.param.addOrderDetailParam;
 import com.example.Jpa.Study.service.JpaStudyService;
 
+import dto.OrderAndOrderDetailDto;
 import dto.itemForm;
 
 @Controller
@@ -45,7 +46,7 @@ public class JpaStudyController {
 	}
 	
 	/**
-	 * 查询所有订单(不要订单明细) 失败
+	 * 查询所有订单(不要订单明细) 
 	 */
 	@RequestMapping("getAllOrder")
 	public List<order> findAllOrder() {
@@ -59,6 +60,15 @@ public class JpaStudyController {
 	@RequestMapping("findAllOrdersByNativeQuery")
 	public List<order> findAllOrdersByNativeQuery() {
 		List<order> orderList = jpaStudyService.findAllOrdersByNativeQuery();
+		return orderList;
+	}
+	
+	/**
+	 * 一个user对应的所有订单与订单明细
+	 */
+	@RequestMapping("findAllOrdersWithOrderDetailsWithUserId")
+	public List<OrderAndOrderDetailDto> findAllOrdersWithOrderDetailsWithUserId(Integer userId) {
+		List<OrderAndOrderDetailDto> orderList = jpaStudyService.findAllOrdersWithOrderDetailsWithUserId(userId);
 		return orderList;
 	}
 	

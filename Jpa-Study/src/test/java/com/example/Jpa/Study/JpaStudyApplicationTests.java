@@ -24,6 +24,8 @@ import com.example.Jpa.Study.entity.ordersDetail;
 import com.example.Jpa.Study.entity.users;
 import com.example.Jpa.Study.service.JpaStudyService;
 
+import dto.OrderAndOrderDetailDto;
+
 
 @SpringBootTest(classes = JpaStudyApplication.class)
 class JpaStudyApplicationTests {
@@ -58,7 +60,7 @@ class JpaStudyApplicationTests {
 	}
 
 	/**
-	 * 所有订单（不要订单明细） 失败
+	 * 所有订单（不要订单明细） 
 	 */
 	@Test void findAllOrders() {
 		List<order> orderlist = jpaStudyController.findAllOrder();
@@ -73,12 +75,20 @@ class JpaStudyApplicationTests {
 		System.out.println("orderlist: " + orderlist.toString());
 	}
 	
+	/**
+	 * 一个user对应的所有订单与订单明细
+	 */
+	@Test void findAllOrdersWithOrderDetailsWithUserId() {
+		List<OrderAndOrderDetailDto> orderlist = jpaStudyController.findAllOrdersWithOrderDetailsWithUserId(1);
+		System.out.println("orderlist: " + orderlist.toString());
+	}
+	
 	@BeforeEach
 	public void setup() {
-		this.ordersDao.deleteAll();
-		this.userdao.deleteAll();
-		this.orderDetailDao.deleteAll();
-		this.itemDao.deleteAll();
+//		this.ordersDao.deleteAll();
+//		this.userdao.deleteAll();
+//		this.orderDetailDao.deleteAll();
+//		this.itemDao.deleteAll();
 	}
 
 	@Test

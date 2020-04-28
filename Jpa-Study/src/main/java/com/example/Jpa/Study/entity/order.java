@@ -75,7 +75,7 @@ public class order {
 	@Column(name = "price" )
 	private float price;
 
-	@OneToMany(fetch = FetchType.EAGER)
+	@OneToMany(fetch = FetchType.LAZY)
 	@JoinColumn(name = "order_id")
 	private Set<ordersDetail> setOrdersDetail = new HashSet<>();
 }
