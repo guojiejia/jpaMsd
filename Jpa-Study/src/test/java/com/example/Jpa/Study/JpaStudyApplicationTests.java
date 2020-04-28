@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -56,7 +56,7 @@ class JpaStudyApplicationTests {
 		List<order> orderlist = jpaStudyController.findOrdersByUserId(1);
 		System.out.println("orderlist: " + orderlist.toString());
 	}
-	
+
 	/**
 	 * 所有订单（不要订单明细） 失败
 	 */
@@ -64,7 +64,7 @@ class JpaStudyApplicationTests {
 		List<order> orderlist = jpaStudyController.findAllOrder();
 		System.out.println("orderlist: " + orderlist.toString());
 	}
-	
+
 	/**
 	 * 所有订单（不要订单明细） 原生sql查询
 	 */
@@ -73,6 +73,14 @@ class JpaStudyApplicationTests {
 		System.out.println("orderlist: " + orderlist.toString());
 	}
 	
+	@BeforeEach
+	public void setup() {
+		this.ordersDao.deleteAll();
+		this.userdao.deleteAll();
+		this.orderDetailDao.deleteAll();
+		this.itemDao.deleteAll();
+	}
+
 	@Test
 	public void storeUserData() {
 		item i = new item();
@@ -115,14 +123,15 @@ class JpaStudyApplicationTests {
 		o.setId(1);
 		o.setPrice(2666*2);
 		o.setCreateTime(new Date());
-//				Set<ordersDetail> odObj = new HashSet<ordersDetail>();
-//				odObj.add(od);
-//				odObj.add(od1);
-//				o.setSetOrdersDetail(odObj);
+		Set<ordersDetail> odObj = new HashSet<ordersDetail>();
+		odObj.add(od);
+		odObj.add(od1);
+		o.setSetOrdersDetail(odObj);
 		o.setUser(u);
 		ordersDao.save(o);
 	}
 
+	@Test
 	public void findAllOrderDetail() {
 		Optional<order> newOrder = ordersDao.findById(1);		
 		List<ordersDetail> findAllByOrder = orderDetailDao.findAllByOrder(newOrder);
@@ -132,12 +141,14 @@ class JpaStudyApplicationTests {
 
 	}
 
+	@Test
 	public void testService () {
 		List<ordersDetail> findDetails = jpaStudyServiceTest.findDetails(1);
 		for(ordersDetail item : findDetails) {
 			System.out.println(item.getItem());
 		}
 	}
+
 	@Test
 	public void findOrder() {
 		Optional<users> findById = userdao.findById(1);

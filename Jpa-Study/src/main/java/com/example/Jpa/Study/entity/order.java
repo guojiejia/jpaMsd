@@ -57,7 +57,7 @@ public class order {
 		this.setOrdersDetail = setOrdersDetail;
 	}
 
-	@ManyToOne(cascade = CascadeType.ALL, fetch =FetchType.EAGER, optional = false)
+	@ManyToOne(targetEntity = users.class, cascade = CascadeType.ALL, fetch =FetchType.LAZY, optional = true)
 	@JoinColumn(name = "user_id" )
 	private users user;
 
@@ -75,6 +75,7 @@ public class order {
 	@Column(name = "price" )
 	private float price;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "order")
+	@OneToMany(fetch = FetchType.EAGER)
+	@JoinColumn(name = "order_id")
 	private Set<ordersDetail> setOrdersDetail = new HashSet<>();
 }
